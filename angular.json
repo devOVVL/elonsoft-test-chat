@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "elonsoft-test-chat"
+    }
+  },
+  "defaultProject": "elonsoft-test-chat",
+  "cli": {
+    "analytics": false
+  }
 }
