@@ -45,8 +45,8 @@ export class LoginContainer implements OnInit {
           console.log(res)
           switch (res) {
             case true:
-              console.log('to-chats')
-              // this.router.navigate(['/chats']);
+              // console.log('to-chats')
+              this.router.navigate(['/chats']);
               break;
             case false:
               this.router.navigate(['/auth/register']);

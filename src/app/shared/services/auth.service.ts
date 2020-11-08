@@ -15,16 +15,34 @@ export class AuthService {
     'name': ''
   });
   public keyUsers = 'users';
+  public keyLastActiveUser = 'last_user'; // хранит логин
   public users = [];
 
   constructor(
     private localStorage: LocalStorageService
   ) { 
-    if(this.localStorage.getItem(this.keyUsers, true)) {
+    if (this.localStorage.getItem(this.keyUsers, true)) {
       this.users = this.localStorage.getItem(this.keyUsers, true);
+      console.log(this.users)
+
+      if (this.localStorage.getItem(this.keyLastActiveUser, true)) {
+        let index = _.findIndex(this.users, { 
+          'email': this.localStorage.getItem(this.keyLastActiveUser, true) 
+        });
+        this.userData.next({
+          'email': this.users[index]['email'],
+          'name': this.users[index]['name']
+        });
+        this.userSignedIn$.next(true);
+      }
+
     } else {
       this.localStorage.setItem(this.keyUsers, this.users);
     }
+  }
+
+  public getUserSignedIn(): Observable<any> {
+    return this.userSignedIn$.asObservable();
   }
 
   public getUserData(): Observable<any> {
@@ -41,6 +59,7 @@ export class AuthService {
         'email': this.users[index]['email'],
         'name': this.users[index]['name']
       });
+      this.localStorage.setItem(this.keyLastActiveUser,this.users[index]['email']  );
       this.userSignedIn$.next(true);
     } else {
       this.userData.next({
