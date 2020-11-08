@@ -1,1 +1,20 @@
-<p>chats works!</p>
+<div class="chat-view">
+    <div class="center-block">
+        <div class="account-col flex-row">
+            <div class="flex-row">
+                <div class="avatar">
+                    VV
+                </div>
+                <div class="user-name">
+                    {{ userData.name }}
+                </div>
+            </div>
+            <div class="flex-row">
+                <button mat-fab color="primary"
+                    (click)="logOut()">
+                  <mat-icon>exit_to_app</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

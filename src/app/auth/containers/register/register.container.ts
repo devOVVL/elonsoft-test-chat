@@ -28,13 +28,13 @@ export class RegisterContainer implements OnInit {
         this.emailToNewUser = res['email']
       }
     )
+  }
+
+  ngOnInit(): void {
     this.regForm = this.fb.group({
       'email': [this.emailToNewUser, [Validators.required, Validators.email] ],
       'name': ['', Validators.required]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   ngOnDestroy() {

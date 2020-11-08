@@ -27,6 +27,7 @@ export class LoginContainer implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
   ngOnDestroy() {
@@ -45,7 +46,7 @@ export class LoginContainer implements OnInit {
           console.log(res)
           switch (res) {
             case true:
-              // console.log('to-chats')
+              console.log('to-chats')
               this.router.navigate(['/chats']);
               break;
             case false:

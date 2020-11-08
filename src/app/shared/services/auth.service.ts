@@ -41,6 +41,16 @@ export class AuthService {
     }
   }
 
+  public logOutUser(): Observable<any> {
+    this.localStorage.setItem(this.keyLastActiveUser, "");
+    this.userData.next({
+      'email': '',
+      'name': ''
+    });
+    this.userSignedIn$.next(false);
+    return this.userSignedIn$.asObservable();
+  }
+
   public getUserSignedIn(): Observable<any> {
     return this.userSignedIn$.asObservable();
   }
@@ -59,7 +69,7 @@ export class AuthService {
         'email': this.users[index]['email'],
         'name': this.users[index]['name']
       });
-      this.localStorage.setItem(this.keyLastActiveUser,this.users[index]['email']  );
+      this.localStorage.setItem(this.keyLastActiveUser, this.users[index]['email']);
       this.userSignedIn$.next(true);
     } else {
       this.userData.next({
