@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Subject } from 'rxjs';
@@ -17,6 +18,7 @@ export class RegisterContainer implements OnInit {
   public emailToNewUser = '';
 
   constructor(
+    private router: Router,
     public fb: FormBuilder,
     private authService: AuthService
   ) {
@@ -52,7 +54,8 @@ export class RegisterContainer implements OnInit {
           console.log(res)
           switch (res) {
             case true:
-              console.log('to-chats')
+              // console.log('to-chats')
+              this.router.navigate(['/chats']);
               break;
             // case false:
             //   break;
