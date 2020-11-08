@@ -1,0 +1,22 @@
+<form class="register-container"
+    [formGroup]="regForm" 
+    (ngSubmit)="onSubmit(regForm.value)">
+    <h1>Registration</h1>
+    <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput placeholder="any@any.any"
+            type="email" 
+            [formControl]="regForm.controls['email']">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name"
+            type="text" 
+            [formControl]="regForm.controls['name']">
+    </mat-form-field>
+    <button mat-raised-button color="primary"
+        type="submit" 
+        [disabled]="regForm.invalid">
+        Registration
+    </button>
+</form>
