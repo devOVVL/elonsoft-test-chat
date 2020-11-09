@@ -39,7 +39,10 @@ export class ChatsService {
       this.localStorage.setItem(this.chatsKey, this.localChats);
 
       this.localStorage.setItem(chatKey, [{
-          sender: 'system', //email
+          sender: {
+            email: 'system',
+            name: 'system'
+          },
           text: 'Welcome to ' + chatKey + ' chat',
           date: new Date().toString().slice(4, 15),
           time: new Date().toString().slice(16, 21)
@@ -55,7 +58,10 @@ export class ChatsService {
   }
 
   public addMessageToChat(chatKey: string, message: {
-    sender: string,
+    sender: {
+      email: string,
+      name: string
+    },
     text: string,
     date: string,
     time: string

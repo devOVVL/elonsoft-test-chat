@@ -14,7 +14,10 @@ export class ChatContainer implements OnInit {
   private _destroy$ = new Subject<void>();
 
   @Input('chatKey') chatKey = '';
-  @Input('senderEmail') senderEmail = '';
+  @Input('sender') sender = {
+    email: '',
+    name: ''
+  };
   public newMessageForm: FormGroup;
 
   public chat = [];
@@ -39,7 +42,7 @@ export class ChatContainer implements OnInit {
           this.chat = res;
         }
     )
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
 
   ngOnDestroy() {
@@ -57,7 +60,7 @@ export class ChatContainer implements OnInit {
   public onSubmit(cf) {
     // console.log(cf);
     let data = {
-      sender: this.senderEmail,
+      sender: this.sender,
       text: cf['text'],
       date: new Date().toString().slice(4, 15),
       time: new Date().toString().slice(16, 21)
