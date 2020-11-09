@@ -24,7 +24,7 @@ export class ChatContainer implements OnInit {
     private chatsService: ChatsService,
   ) {
     this.newMessageForm = this.fb.group({
-      'text': ['', Validators.required ]
+      'text': ['', Validators.required]
     });
   }
 
@@ -47,7 +47,7 @@ export class ChatContainer implements OnInit {
   }
 
   public onSubmit(cf) {
-    console.log(cf);
+    // console.log(cf);
     let data = {
       sender: this.senderEmail,
       text: cf['text'],

@@ -42,6 +42,10 @@ export class ChatsListContainer implements OnInit {
     this._destroy$.complete();
   }
 
+  public toggleForm() {
+    this.clickOnAdd = !this.clickOnAdd;
+  }
+
   public clickOnChatKey(chatKey) {
     this.clickOnChat.emit(chatKey);
   }
@@ -59,7 +63,7 @@ export class ChatsListContainer implements OnInit {
     this.newChatForm.patchValue({
       'name': ''
     })
-    this.clickOnAdd = false;
+    this.toggleForm();
   } 
 
 }

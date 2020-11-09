@@ -30,21 +30,22 @@ export class ChatsService {
   }
 
   public addNewChat(chatKey: string): Observable<any> {
-
     this.localChats = this.localStorage.getItem(this.chatsKey, true);
-    this.localChats.push(chatKey)
 
-    this.chats$.next(this.localChats);
-    this.localStorage.setItem(this.chatsKey, this.localChats);
+    if (!this.localChats.includes(chatKey)) {
+      this.localChats.push(chatKey);
+      
+      this.chats$.next(this.localChats);
+      this.localStorage.setItem(this.chatsKey, this.localChats);
 
-    this.localStorage.setItem(chatKey, [{
-        sender: 'system', //email
-        text: 'Welcome to ' + chatKey + ' chat',
-        date: new Date().toString().slice(4, 15),
-        time: new Date().toString().slice(16, 21)
-      }]
-    );
-
+      this.localStorage.setItem(chatKey, [{
+          sender: 'system', //email
+          text: 'Welcome to ' + chatKey + ' chat',
+          date: new Date().toString().slice(4, 15),
+          time: new Date().toString().slice(16, 21)
+        }]
+      );
+    }
     return this.chats$.asObservable();
   }
 

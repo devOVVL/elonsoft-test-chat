@@ -28,7 +28,7 @@
         </button>
     </form>
     <button mat-fab color="primary"
-        (click)="clickOnAdd = !clickOnAdd"
+        (click)="toggleForm()"
     >
         <mat-icon *ngIf="!clickOnAdd">add</mat-icon>
         <mat-icon *ngIf="clickOnAdd">close</mat-icon>

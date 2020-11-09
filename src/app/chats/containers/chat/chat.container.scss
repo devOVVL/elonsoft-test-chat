@@ -21,13 +21,25 @@
         margin: 0px auto;
         flex: 1 0;
         .message {
+            width: auto;
             .system {
                 text-align: center;
                 text-decoration: underline;
             }
-            .User {
-                
+            .user {
+                padding: 8px 16px;
+                max-width: 320px;
+                border-radius: 8px;
+                border: 1px solid #000;
             }
+        }
+        .owner {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .other {
+            display: flex;
+            justify-content: flex-start;
         }
     }
     .newMessage {
