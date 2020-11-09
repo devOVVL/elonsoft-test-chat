@@ -1,0 +1,90 @@
+.choose {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    mat-icon {
+        margin-left: 8px;
+    }
+}
+.chat {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .messages {
+        // max-height: 600px;
+        margin: 0px 0px 0px 16px;
+        padding-right: 56px;
+        flex: 1 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-top: 24px;  
+        .message {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 24px 0px;
+            word-wrap: break-word;
+            letter-spacing: 0.15px;
+            .cont {
+                background: rgba(33, 33, 33, 0.08);
+                border-radius: 8px;
+            }
+        }
+        .system {
+            text-align: center;
+            .text {
+                margin: 16px;
+            }
+        }
+        .other, .owner {
+            display: flex;
+            .cont {
+                max-width: 320px;
+            }
+        }
+        .owner {
+            justify-content: flex-end;
+        }
+        .other {
+            justify-content: flex-start;
+        }
+        .name-line {
+            display: flex;
+            align-items: flex-end;
+            margin: 16px 16px 0px;
+            color: rgba(0, 0, 0, 0.6);
+            .name {
+                font-size: 20px;
+                line-height: 24px;
+            }
+            .time {
+                margin-left: 8px; 
+                font-size: 12px;
+                line-height: 16px;
+            }
+        }
+        .text {
+            font-size: 14px;
+            line-height: 20px;
+            margin: 8px 16px 16px;
+        }
+    }
+    .input-cont {
+        flex: 0 0;
+        margin-top: 24px;
+        .newMessage {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 0px auto;
+            mat-form-field {
+                width: 80%
+            }
+        }
+    }
+}
+
