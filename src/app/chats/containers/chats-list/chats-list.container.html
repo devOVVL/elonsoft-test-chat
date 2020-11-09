@@ -1,0 +1,35 @@
+<div class="chats-list">
+    <mat-selection-list role="list" 
+        class="list"
+        [multiple]="false"
+        *ngIf="chatsList.length != 0"
+    >
+        <mat-list-option role="listitem"
+            *ngFor="let chatKey of chatsList"
+        >
+            {{ chatKey }}
+            <mat-divider></mat-divider>
+        </mat-list-option>
+    </mat-selection-list>
+    <form *ngIf="clickOnAdd"
+        [formGroup]="newChatForm"
+        (ngSubmit)="onSubmit(newChatForm.value)">
+        <mat-form-field appearance="outline">
+            <mat-label>Chat name</mat-label>
+            <input matInput placeholder="Chat name"
+                type="text" 
+                [formControl]="newChatForm.controls['name']">
+        </mat-form-field>
+        <button mat-mini-fab color="primary"
+            type="submit" 
+            [disabled]="newChatForm.invalid">
+            <mat-icon>add</mat-icon>
+        </button>
+    </form>
+    <button mat-fab color="primary"
+        (click)="clickOnAdd = !clickOnAdd"
+    >
+        <mat-icon *ngIf="!clickOnAdd">add</mat-icon>
+        <mat-icon *ngIf="clickOnAdd">close</mat-icon>
+    </button>
+</div>
