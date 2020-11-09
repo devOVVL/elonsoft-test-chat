@@ -46,16 +46,8 @@ export class ChatsView implements OnInit {
         res => {
           console.log(res);
           this.router.navigate(['/auth/login']);
-        },
-        err => {
-          console.log(err);
         }
     )
   }
-
-  // public logOut() {
-  //   this.authService.logOutUser();
-  //   this.router.navigate(['/auth/login']);
-  // }
 
 }

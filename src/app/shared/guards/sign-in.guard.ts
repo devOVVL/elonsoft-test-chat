@@ -3,12 +3,15 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignInGuard implements CanActivate {
 
+  private _destroy$ = new Subject<void>();
   public userSignedIn = false;
 
   constructor(
@@ -18,10 +21,11 @@ export class SignInGuard implements CanActivate {
     this.authService.getUserSignedIn()
       .subscribe(
         res => {
-          console.log(res)
           this.userSignedIn = res;
         }
     )
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   canActivate(
