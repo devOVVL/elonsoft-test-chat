@@ -7,10 +7,11 @@ import { SharedModule } from './../shared/shared.module';
 import { ChatsRoutingModule } from './chats-routing.module';
 import { ChatsView } from './views/chats/chats.view';
 import { ChatsListContainer } from './containers/chats-list/chats-list.container';
+import { ChatContainer } from './containers/chat/chat.container';
 
 
 @NgModule({
-  declarations: [ChatsView, ChatsListContainer],
+  declarations: [ChatsView, ChatsListContainer, ChatContainer],
   imports: [
     CommonModule,
     ChatsRoutingModule,

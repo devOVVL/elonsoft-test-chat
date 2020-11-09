@@ -20,6 +20,10 @@
             <app-chats-list
                 (clickOnChat)="clickToChat($event)"
             ></app-chats-list>
+            <app-chat
+                [senderEmail]="userData.email"
+                [chatKey]="activeChatKey"
+            ></app-chat>
         </div>
     </div>
 </div>

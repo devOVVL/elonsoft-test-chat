@@ -37,7 +37,13 @@ export class ChatsService {
     this.chats$.next(this.localChats);
     this.localStorage.setItem(this.chatsKey, this.localChats);
 
-    this.localStorage.setItem(chatKey, []);
+    this.localStorage.setItem(chatKey, [{
+        sender: 'system', //email
+        text: 'Welcome to ' + chatKey + ' chat',
+        date: new Date().toString().slice(4, 15),
+        time: new Date().toString().slice(16, 21)
+      }]
+    );
 
     return this.chats$.asObservable();
   }
@@ -46,4 +52,18 @@ export class ChatsService {
     this.chat$.next(this.localStorage.getItem(chatKey, true));
     return this.chat$.asObservable();
   }
+
+  public addMessageToChat(chatKey: string, message: {
+    sender: string,
+    text: string,
+    date: string,
+    time: string
+  }): Observable<any> {
+    let chat = this.localStorage.getItem(chatKey, true);
+    chat.push(message);
+    this.localStorage.setItem(chatKey, chat);
+    this.chat$.next(this.localStorage.getItem(chatKey, true));
+    return this.chat$.asObservable();
+  }
+
 }

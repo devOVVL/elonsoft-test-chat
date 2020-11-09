@@ -20,6 +20,7 @@ export class ChatsView implements OnInit {
     name: '',
   };
   public avatarInitials = '';
+  public activeChatKey = '';
 
   constructor(
     private localStorage: LocalStorageService,
@@ -31,6 +32,7 @@ export class ChatsView implements OnInit {
     let index = _.findIndex(users, { 'email': email });
 
     this.userData = users[index];
+    // console.log(this.userData)
   }
 
   ngOnInit(): void {
@@ -49,7 +51,7 @@ export class ChatsView implements OnInit {
   }
 
   public clickToChat(item: string) {
-    console.log(item)
+    this.activeChatKey = item;
   }
 
   public logOut() {
