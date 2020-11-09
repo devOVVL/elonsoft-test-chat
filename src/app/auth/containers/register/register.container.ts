@@ -51,10 +51,8 @@ export class RegisterContainer implements OnInit {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         res => {
-          console.log(res)
           switch (res) {
             case true:
-              // console.log('to-chats')
               this.router.navigate(['/chats']);
               break;
             // case false:

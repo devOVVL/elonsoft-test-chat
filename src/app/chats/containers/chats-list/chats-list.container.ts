@@ -50,6 +50,9 @@ export class ChatsListContainer implements OnInit {
           this.chatsList = res;
         }
     )
+    this.newChatForm.patchValue({
+      'name': ''
+    })
     this.clickOnAdd = false;
   } 
 

@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LocalStorageService } from '@newteq/ngx-local-storage';
+
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-chats',
@@ -16,22 +19,28 @@ export class ChatsView implements OnInit {
     email: '',
     name: '',
   };
+  public avatarInitials = '';
 
   constructor(
+    private localStorage: LocalStorageService,
     private router: Router,
     private authService: AuthService
   ) {
-    this.authService.getUserData()
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(
-        res => {
-          console.log(res);
-          this.userData = res;
-        }
-    )
+    let users = this.localStorage.getItem('users', true);
+    let email = this.localStorage.getItem('last_user', true);
+    let index = _.findIndex(users, { 'email': email });
+
+    this.userData = users[index];
   }
 
   ngOnInit(): void {
+    if (this.userData.name.split(' ').length >= 2) {
+      for (let word of this.userData.name.split(' ')) {
+        this.avatarInitials += word[0];
+      }
+    } else {
+      this.avatarInitials = this.userData.name[0];
+    }
   }
 
   ngOnDestroy() {
@@ -44,7 +53,6 @@ export class ChatsView implements OnInit {
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         res => {
-          console.log(res);
           this.router.navigate(['/auth/login']);
         }
     )
