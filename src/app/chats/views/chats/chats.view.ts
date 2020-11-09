@@ -48,6 +48,10 @@ export class ChatsView implements OnInit {
     this._destroy$.complete();
   }
 
+  public clickToChat(item: string) {
+    console.log(item)
+  }
+
   public logOut() {
     this.authService.logOutUser()
       .pipe(takeUntil(this._destroy$))

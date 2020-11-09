@@ -17,7 +17,9 @@
             </div>
         </div>
         <div class="chats flex-row">
-            <app-chats-list></app-chats-list>
+            <app-chats-list
+                (clickOnChat)="clickToChat($event)"
+            ></app-chats-list>
         </div>
     </div>
 </div>

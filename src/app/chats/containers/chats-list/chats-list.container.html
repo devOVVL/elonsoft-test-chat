@@ -6,6 +6,7 @@
     >
         <mat-list-option role="listitem"
             *ngFor="let chatKey of chatsList"
+            (click)="clickOnChatKey(chatKey)"
         >
             {{ chatKey }}
             <mat-divider></mat-divider>

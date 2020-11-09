@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ChatsService } from '../../../shared/services/chats.service';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -10,6 +10,8 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./chats-list.container.scss']
 })
 export class ChatsListContainer implements OnInit {
+
+  @Output() clickOnChat = new EventEmitter<string>();
 
   public newChatForm: FormGroup;
   private _destroy$ = new Subject<void>();
@@ -38,6 +40,10 @@ export class ChatsListContainer implements OnInit {
   ngOnDestroy() {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public clickOnChatKey(chatKey) {
+    this.clickOnChat.emit(chatKey);
   }
 
   public onSubmit(cf) {
