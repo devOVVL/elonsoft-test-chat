@@ -19,6 +19,10 @@ export class ChatContainer implements OnInit {
     name: ''
   };
   public newMessageForm: FormGroup;
+  
+  public messageEdit = false;
+  public indexEdittingMessage: number = null;
+  public editMessageForm: FormGroup;
 
   public chat = [];
 
@@ -27,6 +31,9 @@ export class ChatContainer implements OnInit {
     private chatsService: ChatsService,
   ) {
     this.newMessageForm = this.fb.group({
+      'text': ['']
+    });
+    this.editMessageForm = this.fb.group({
       'text': ['']
     });
   }
@@ -48,6 +55,49 @@ export class ChatContainer implements OnInit {
   ngOnDestroy() {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public deleteMessage(index) {
+    this.chatsService.removeMessageFromChat(this.chatKey, index)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        res => {
+          this.chat = res;
+        }
+    )
+    this.scrollToBottom();
+  }
+
+  public editMessage(index) {
+    this.messageEdit = true;
+    this.indexEdittingMessage = index;
+    this.editMessageForm.patchValue({
+      text: this.chat[index].text
+    })
+  }
+
+  public closeEdit() {
+    this.messageEdit = false;
+    this.indexEdittingMessage = null;
+    this.editMessageForm.patchValue({
+      'text': ''
+    })
+  }
+
+  public onSubmitEditMessage(cf) {
+    console.log(cf)
+    this.chatsService.editMessageInChat(
+      this.chatKey, 
+      this.indexEdittingMessage, 
+      cf['text']
+    )
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        res => {
+          this.chat = res;
+        }
+    )
+    this.closeEdit();
   }
 
   public scrollToBottom() {
