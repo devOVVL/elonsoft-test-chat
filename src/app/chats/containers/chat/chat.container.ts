@@ -27,7 +27,7 @@ export class ChatContainer implements OnInit {
     private chatsService: ChatsService,
   ) {
     this.newMessageForm = this.fb.group({
-      'text': ['', Validators.required]
+      'text': ['']
     });
   }
 

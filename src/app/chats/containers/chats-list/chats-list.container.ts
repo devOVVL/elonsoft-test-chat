@@ -16,7 +16,6 @@ export class ChatsListContainer implements OnInit {
   public newChatForm: FormGroup;
   private _destroy$ = new Subject<void>();
   public chatsList = [];
-  public clickOnAdd = false;
 
   constructor(
     public fb: FormBuilder,
@@ -30,7 +29,7 @@ export class ChatsListContainer implements OnInit {
         }
     )
     this.newChatForm = this.fb.group({
-      'name': ['', Validators.required ]
+      'name': ['']
     });
   }
 
@@ -40,10 +39,6 @@ export class ChatsListContainer implements OnInit {
   ngOnDestroy() {
     this._destroy$.next();
     this._destroy$.complete();
-  }
-
-  public toggleForm() {
-    this.clickOnAdd = !this.clickOnAdd;
   }
 
   public clickOnChatKey(chatKey) {
@@ -63,7 +58,6 @@ export class ChatsListContainer implements OnInit {
     this.newChatForm.patchValue({
       'name': ''
     })
-    this.toggleForm();
   } 
 
 }

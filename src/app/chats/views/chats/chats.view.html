@@ -3,17 +3,15 @@
         <div class="account-row flex-row">
             <div class="flex-row">
                 <div class="avatar">
-                    {{ avatarInitials }}
+                    <mat-icon>person</mat-icon>
                 </div>
                 <div class="user-name">
                     {{ userData.name }}
                 </div>
             </div>
-            <div class="flex-row">
-                <button mat-fab color="primary"
-                    (click)="logOut()">
-                  <mat-icon>exit_to_app</mat-icon>
-                </button>
+            <div class="log-out flex-row" (click)="logOut()">
+                Exit
+                <mat-icon>exit_to_app</mat-icon>
             </div>
         </div>
         <div class="chats flex-row">

@@ -5,38 +5,59 @@
 </div>
 <div class="chat"
     *ngIf="chatKey.length !== 0">
-    <div class="messages"
-        id="messages">
-        <div class="message"
-            [ngClass]="message.sender.email == sender.email ? 'owner' : 'other'"
-            *ngFor="let message of chat">
-            <div [ngClass]="message.sender.email == 'system' ? 'system' : 'user'">
-                <div class="name" 
-                    *ngIf="message.sender.email != sender.email && message.sender.email != 'system'">
-                    {{ message.sender.name }}
-                    <mat-divider></mat-divider>
+    <div class="messages" id="messages">
+        <div class="message" 
+            *ngFor="let message of chat"
+            [ngClass]="message.sender.email == 'system' ? 'system' : message.sender.email == sender.email ? 'owner' : 'other'">
+            <div class="cont">
+                <div class="name-line"
+                    *ngIf="message.sender.email != 'system'">
+                    <div class="name">
+                        {{ message.sender.name }}
+                    </div>
+                    <div class="time">
+                        {{ message.time }}
+                    </div>
                 </div>
-                {{ message.text }}
-                <mat-divider></mat-divider>
-                <div class="time">
-                    {{ message.time }}
+                <div class="text">
+                    {{ message.text }}
                 </div>
             </div>
+            <button mat-icon-button [matMenuTriggerFor]="menu"
+                *ngIf="message.sender.email == sender.email">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>create</mat-icon>
+                    <span>Edit</span>
+                </button>
+            </mat-menu>
         </div>
     </div>
-    <form class="newMessage"
-        [formGroup]="newMessageForm"
-        (ngSubmit)="onSubmit(newMessageForm.value)">
-        <mat-form-field appearance="outline">
-            <mat-label>Your message</mat-label>
-            <input matInput placeholder="Your message"
-                type="text" 
-                [formControl]="newMessageForm.controls['text']">
-        </mat-form-field>
-        <button mat-raised-button color="primary"
-            type="submit" 
-            [disabled]="newMessageForm.invalid">
-            <mat-icon>send</mat-icon>
-        </button>
-    </form>
+    <div class="input-cont">
+        <form class="newMessage"
+            [formGroup]="newMessageForm"
+            (ngSubmit)="onSubmit(newMessageForm.value)">
+            <mat-form-field appearance="fill">
+                <mat-label>Your message</mat-label>
+                <textarea matInput placeholder="Your message"
+                    maxlength="80"
+                    [formControl]="newMessageForm.controls['text']">
+                </textarea>
+                <mat-hint align="end">
+                    {{ newMessageForm.controls['text'].value.length }} / 80 
+                </mat-hint>
+            </mat-form-field>
+            <button mat-fab color="primary"
+                type="submit" 
+                [disabled]="newMessageForm.controls['text'].value.length == 0">
+                <mat-icon>create</mat-icon>
+            </button>
+        </form>
+    </div>
 </div>
