@@ -39,11 +39,19 @@ export class ChatContainer implements OnInit {
           this.chat = res;
         }
     )
+    this.scrollToBottom();
   }
 
   ngOnDestroy() {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public scrollToBottom() {
+    setTimeout(() => {
+      var object = document.getElementById("messages");
+      object.scrollTop = object.scrollHeight;
+    }, 10);
   }
 
   public onSubmit(cf) {
@@ -64,6 +72,7 @@ export class ChatContainer implements OnInit {
     this.newMessageForm.patchValue({
       'text': ''
     })
+    this.scrollToBottom();
   } 
 
 }

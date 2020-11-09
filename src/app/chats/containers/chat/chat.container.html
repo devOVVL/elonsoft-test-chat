@@ -5,7 +5,8 @@
 </div>
 <div class="chat"
     *ngIf="chatKey.length !== 0">
-    <div class="messages">
+    <div class="messages"
+        id="messages">
         <div class="message"
             [ngClass]="message.sender == senderEmail ? 'owner' : 'other'"
             *ngFor="let message of chat">
@@ -19,6 +20,13 @@
             </div>
         </div>
     </div>
+    <!-- <div class="messages">
+        <div class="message"
+            *ngFor="let message of chat; last as last"
+        >
+            {{ message.text }}
+        </div>
+    </div> -->
     <form class="newMessage"
         [formGroup]="newMessageForm"
         (ngSubmit)="onSubmit(newMessageForm.value)">

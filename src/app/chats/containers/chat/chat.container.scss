@@ -20,9 +20,16 @@
         max-height: 600px;
         margin: 0px auto;
         flex: 1 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-top: 20px;  
         .message {
             width: auto;
+            margin: 10px 0px;
+            word-wrap: break-word;
+            line-height: 24px;
             .system {
+                width: 100%;
                 text-align: center;
                 text-decoration: underline;
             }
