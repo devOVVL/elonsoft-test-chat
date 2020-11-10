@@ -21,6 +21,7 @@ export class SignInGuard implements CanActivate {
     this.authService.getUserSignedIn()
       .subscribe(
         res => {
+          // console.log(res);
           this.userSignedIn = res;
         }
     )
