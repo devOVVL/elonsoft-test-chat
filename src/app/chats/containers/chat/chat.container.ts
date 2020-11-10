@@ -4,6 +4,8 @@ import { ChatsService } from '../../../shared/services/chats.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.container.html',
@@ -19,14 +21,22 @@ export class ChatContainer implements OnInit {
     name: ''
   };
   public newMessageForm: FormGroup;
+  
+  public messageEdit = false;
+  public indexEdittingMessage: number = null;
+  public editMessageForm: FormGroup;
 
   public chat = [];
 
   constructor(
     public fb: FormBuilder,
     private chatsService: ChatsService,
+    private _snackBar: MatSnackBar,
   ) {
     this.newMessageForm = this.fb.group({
+      'text': ['']
+    });
+    this.editMessageForm = this.fb.group({
       'text': ['']
     });
   }
@@ -48,6 +58,59 @@ export class ChatContainer implements OnInit {
   ngOnDestroy() {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  public openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+      horizontalPosition: 'left',
+      verticalPosition: 'bottom',
+    });
+  }
+
+  public deleteMessage(index) {
+    this.chatsService.removeMessageFromChat(this.chatKey, index)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        res => {
+          this.chat = res;
+        }
+    )
+    this.openSnackBar("Message was deleted", "Ok");
+    this.scrollToBottom();
+  }
+
+  public editMessage(index) {
+    this.messageEdit = true;
+    this.indexEdittingMessage = index;
+    this.editMessageForm.patchValue({
+      text: this.chat[index].text
+    })
+  }
+
+  public closeEdit() {
+    this.messageEdit = false;
+    this.indexEdittingMessage = null;
+    this.editMessageForm.patchValue({
+      'text': ''
+    })
+  }
+
+  public onSubmitEditMessage(cf) {
+    console.log(cf)
+    this.chatsService.editMessageInChat(
+      this.chatKey, 
+      this.indexEdittingMessage, 
+      cf['text']
+    )
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(
+        res => {
+          this.chat = res;
+        }
+    )
+    this.openSnackBar("Message was edited", "Ok");
+    this.closeEdit();
   }
 
   public scrollToBottom() {

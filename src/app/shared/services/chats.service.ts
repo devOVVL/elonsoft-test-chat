@@ -73,4 +73,27 @@ export class ChatsService {
     return this.chat$.asObservable();
   }
 
+  public removeMessageFromChat(
+    chatKey: string, index: number
+  ): Observable<any> {
+    let chat = this.localStorage.getItem(chatKey, true);
+    let message = chat[index];
+    chat = _.without(chat, message);
+    this.localStorage.setItem(chatKey, chat);
+    this.chat$.next(this.localStorage.getItem(chatKey, true));
+    return this.chat$.asObservable();
+  }
+
+  public editMessageInChat(
+    chatKey: string, 
+    index: number,
+    text: string
+  ): Observable<any> {
+    let chat = this.localStorage.getItem(chatKey, true);
+    chat[index].text = text;
+    this.localStorage.setItem(chatKey, chat);
+    this.chat$.next(this.localStorage.getItem(chatKey, true));
+    return this.chat$.asObservable();
+  }
+
 }

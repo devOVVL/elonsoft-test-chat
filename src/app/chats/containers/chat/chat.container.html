@@ -7,7 +7,7 @@
     *ngIf="chatKey.length !== 0">
     <div class="messages" id="messages">
         <div class="message" 
-            *ngFor="let message of chat"
+            *ngFor="let message of chat; index as i"
             [ngClass]="message.sender.email == 'system' ? 'system' : message.sender.email == sender.email ? 'owner' : 'other'">
             <div class="cont">
                 <div class="name-line"
@@ -24,15 +24,17 @@
                 </div>
             </div>
             <button mat-icon-button [matMenuTriggerFor]="menu"
-                *ngIf="message.sender.email == sender.email">
+                *ngIf="message.sender.email == sender.email && indexEdittingMessage == null">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item>
+                <button mat-menu-item
+                    (click)="deleteMessage(i)">
                     <mat-icon>delete</mat-icon>
                     <span>Delete</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item
+                    (click)="editMessage(i)">
                     <mat-icon>create</mat-icon>
                     <span>Edit</span>
                 </button>
@@ -40,7 +42,30 @@
         </div>
     </div>
     <div class="input-cont">
-        <form class="newMessage"
+        <form *ngIf="messageEdit"
+            [formGroup]="editMessageForm"
+            (ngSubmit)="onSubmitEditMessage(editMessageForm.value)">
+            <button mat-fab color="primary"
+                (click)="closeEdit()">
+                <mat-icon>clear</mat-icon>
+            </button>
+            <mat-form-field appearance="fill">
+                <mat-label>Your message</mat-label>
+                <textarea matInput placeholder="Your message"
+                    maxlength="80"
+                    [formControl]="editMessageForm.controls['text']">
+                </textarea>
+                <mat-hint align="end">
+                    {{ editMessageForm.controls['text'].value.length }} / 80 
+                </mat-hint>
+            </mat-form-field>
+            <button mat-fab color="primary"
+                type="submit" 
+                [disabled]="editMessageForm.controls['text'].value.length == 0">
+                <mat-icon>create</mat-icon>
+            </button>
+        </form>
+        <form *ngIf="!messageEdit"
             [formGroup]="newMessageForm"
             (ngSubmit)="onSubmit(newMessageForm.value)">
             <mat-form-field appearance="fill">
