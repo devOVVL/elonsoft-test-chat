@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -23,7 +24,10 @@
     "@angular/router": "~10.0.9",
     "@newteq/ngx-local-storage": "^1.0.1",
     "all": "0.0.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
     "md5": "^2.3.0",
+    "path": "^0.12.7",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "underscore": "^1.11.0",
