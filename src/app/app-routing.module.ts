@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from './shared/guards/auth.guard';
 import { SignInGuard } from './shared/guards/sign-in.guard';
 
 const routes: Routes = [
@@ -12,7 +11,6 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    canActivate: [AuthGuard],
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
@@ -25,7 +23,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   providers: [
-    AuthGuard,
     SignInGuard
   ],
   exports: [RouterModule]
