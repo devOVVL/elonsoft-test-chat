@@ -4,6 +4,8 @@ import { ChatsService } from '../../../shared/services/chats.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.container.html',
@@ -29,6 +31,7 @@ export class ChatContainer implements OnInit {
   constructor(
     public fb: FormBuilder,
     private chatsService: ChatsService,
+    private _snackBar: MatSnackBar,
   ) {
     this.newMessageForm = this.fb.group({
       'text': ['']
@@ -57,6 +60,14 @@ export class ChatContainer implements OnInit {
     this._destroy$.complete();
   }
 
+  public openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+      horizontalPosition: 'left',
+      verticalPosition: 'bottom',
+    });
+  }
+
   public deleteMessage(index) {
     this.chatsService.removeMessageFromChat(this.chatKey, index)
       .pipe(takeUntil(this._destroy$))
@@ -65,6 +76,7 @@ export class ChatContainer implements OnInit {
           this.chat = res;
         }
     )
+    this.openSnackBar("Message was deleted", "Ok");
     this.scrollToBottom();
   }
 
@@ -97,6 +109,7 @@ export class ChatContainer implements OnInit {
           this.chat = res;
         }
     )
+    this.openSnackBar("Message was edited", "Ok");
     this.closeEdit();
   }
 
